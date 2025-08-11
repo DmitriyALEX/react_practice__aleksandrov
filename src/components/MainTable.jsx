@@ -1,6 +1,11 @@
 import React from 'react';
+import cn from 'classNames';
+import { tableHeaders } from '../utils/constans';
+import { sex } from '../utils/constans';
 
-const MainTable = () => {
+const MainTable = ({ renderedData }) => {
+  console.log(renderedData);
+
   return (
     <div className="box table-container">
       <p data-cy="NoMatchingMessage">No products matching selected criteria</p>
@@ -13,7 +18,7 @@ const MainTable = () => {
           <tr>
             <th>
               <span className="is-flex is-flex-wrap-nowrap">
-                ID
+                {tableHeaders.TABLE_HEADER_ID}
                 <a href="#/">
                   <span className="icon">
                     <i data-cy="SortIcon" className="fas fa-sort" />
@@ -24,7 +29,7 @@ const MainTable = () => {
 
             <th>
               <span className="is-flex is-flex-wrap-nowrap">
-                Product
+                {tableHeaders.TABLE_HEADER_PRODUCT}
                 <a href="#/">
                   <span className="icon">
                     <i data-cy="SortIcon" className="fas fa-sort-down" />
@@ -35,7 +40,7 @@ const MainTable = () => {
 
             <th>
               <span className="is-flex is-flex-wrap-nowrap">
-                Category
+                {tableHeaders.TABLE_HEADER_CATEGORY}
                 <a href="#/">
                   <span className="icon">
                     <i data-cy="SortIcon" className="fas fa-sort-up" />
@@ -46,7 +51,7 @@ const MainTable = () => {
 
             <th>
               <span className="is-flex is-flex-wrap-nowrap">
-                User
+                {tableHeaders.TABLE_HEADER_USER}
                 <a href="#/">
                   <span className="icon">
                     <i data-cy="SortIcon" className="fas fa-sort" />
@@ -58,44 +63,21 @@ const MainTable = () => {
         </thead>
 
         <tbody>
-          <tr data-cy="Product">
-            <td className="has-text-weight-bold" data-cy="ProductId">
-              1
-            </td>
+          {renderedData.map(tableItem => (
+            <tr data-cy="Product">
+              <td className="has-text-weight-bold" data-cy="ProductId">
+                {tableItem.id}
+              </td>
+              <td data-cy="ProductName">{tableItem.name}</td>
 
-            <td data-cy="ProductName">Milk</td>
-            <td data-cy="ProductCategory">🍺 - Drinks</td>
-
-            <td data-cy="ProductUser" className="has-text-link">
-              Max
-            </td>
-          </tr>
-
-          <tr data-cy="Product">
-            <td className="has-text-weight-bold" data-cy="ProductId">
-              2
-            </td>
-
-            <td data-cy="ProductName">Bread</td>
-            <td data-cy="ProductCategory">🍞 - Grocery</td>
-
-            <td data-cy="ProductUser" className="has-text-danger">
-              Anna
-            </td>
-          </tr>
-
-          <tr data-cy="Product">
-            <td className="has-text-weight-bold" data-cy="ProductId">
-              3
-            </td>
-
-            <td data-cy="ProductName">iPhone</td>
-            <td data-cy="ProductCategory">💻 - Electronics</td>
-
-            <td data-cy="ProductUser" className="has-text-link">
-              Roma
-            </td>
-          </tr>
+              <td data-cy="ProductCategory">
+                {tableItem.category.icon} - {tableItem.category.title}
+              </td>
+              <td data-cy="ProductUser" className="has-text-link">
+                {tableItem.owner.name}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
