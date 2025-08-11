@@ -1,4 +1,4 @@
-export const filteredData = (data, sortCategory, searchQuery) => {
+export const filteredData = (data, sortCategory, searchQuery, sortByUser) => {
   let copy = [...data];
 
   if (searchQuery !== '') {
@@ -11,6 +11,16 @@ export const filteredData = (data, sortCategory, searchQuery) => {
 
   if (sortCategory && sortCategory !== 'All') {
     copy = copy.filter(item => item.category.title === sortCategory);
+  }
+
+  if (sortCategory === 'All') {
+    copy = data;
+  }
+
+  if (sortByUser && sortByUser !== 'All') {
+    copy = copy.filter(item => item.owner.name === sortByUser);
+  } else if (sortByUser === 'All') {
+    copy = data;
   }
 
   return copy;

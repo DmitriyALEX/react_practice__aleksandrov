@@ -19,9 +19,15 @@ const mergedData = mergeDataFromServer(
 export const App = () => {
   const [data] = useState(mergedData);
   const [sortCategory, setSortCategory] = useState('');
+  const [sortByUser, setSortByUser] = useState('');
   const [searchQuery, setSearcQuery] = useState('');
 
-  const renderedData = filteredData(data, sortCategory, searchQuery);
+  const renderedData = filteredData(
+    data,
+    sortCategory,
+    searchQuery,
+    sortByUser,
+  );
 
   return (
     <div className="section">
@@ -32,6 +38,7 @@ export const App = () => {
           setSearcQuery={setSearcQuery}
           sortCategory={sortCategory}
           setSortCategory={setSortCategory}
+          setSortByUser={setSortByUser}
         />
         <MainTable renderedData={renderedData} />
       </div>

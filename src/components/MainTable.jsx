@@ -61,7 +61,7 @@ const MainTable = ({ renderedData }) => {
 
         <tbody>
           {renderedData.map(tableItem => (
-            <tr data-cy="Product">
+            <tr data-cy="Product" key={tableItem.id}>
               <td className="has-text-weight-bold" data-cy="ProductId">
                 {tableItem.id}
               </td>
