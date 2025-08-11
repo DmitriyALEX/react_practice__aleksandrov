@@ -17,17 +17,22 @@ const mergedData = mergeDataFromServer(
 );
 
 export const App = () => {
-  const [data, setData] = useState(mergedData);
-  const [sortType, setSortType] = useState('');
+  const [data] = useState(mergedData);
+  const [sortCategory, setSortCategory] = useState('');
   const [searchQuery, setSearcQuery] = useState('');
 
-  const renderedData = filteredData(data, sortType, searchQuery);
+  const renderedData = filteredData(data, sortCategory, searchQuery);
 
   return (
     <div className="section">
       <div className="container">
         <h1 className="title">Product Categories</h1>
-        <Navbar searchQuery={searchQuery} setSearcQuery={setSearcQuery} />
+        <Navbar
+          searchQuery={searchQuery}
+          setSearcQuery={setSearcQuery}
+          sortCategory={sortCategory}
+          setSortCategory={setSortCategory}
+        />
         <MainTable renderedData={renderedData} />
       </div>
     </div>
