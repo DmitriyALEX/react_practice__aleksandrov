@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import cn from 'classnames';
+import { categories } from '../utils/constans';
+// import { mergeDataFromServer } from '../utils/mergeDataFromServer';
 
-const Navbar = () => {
+const Navbar = ({ searchQuery, setSearcQuery, setSortCategory }) => {
+  const [categoryItem, setCategoryItem] = useState('');
+  const categoryProductButtons = [
+    { id: 1, label: categories.CATEGORY_GROCERY },
+    { id: 2, label: categories.CATEGORY_DRINKS },
+    { id: 3, label: categories.CATEGORY_FRUITS },
+    { id: 4, label: categories.CATEGORY_ELECTRONICS },
+    { id: 5, label: categories.CATEGORY_CLOTHES },
+  ];
+
+  // const users = mergeDataFromServer.map(user => {
+  //   return user.name;
+  // });
+
   return (
     <div className="block">
       <nav className="panel">
@@ -31,7 +47,8 @@ const Navbar = () => {
               type="text"
               className="input"
               placeholder="Search"
-              value="qwe"
+              value={searchQuery}
+              onChange={event => setSearcQuery(event.target.value)}
             />
 
             <span className="icon is-left">
@@ -50,24 +67,31 @@ const Navbar = () => {
             href="#/"
             data-cy="AllCategories"
             className="button is-success mr-6 is-outlined"
+            onClick={() => {
+              setSortCategory(categories.CATEGORY_ALL);
+              setCategoryItem(categories.CATEGORY_ALL);
+            }}
           >
             All
           </a>
+          {categoryProductButtons.map(category => {
+            const isActive = categoryItem === category.label;
 
-          <a data-cy="Category" className="button mr-2 my-1 is-info" href="#/">
-            Category 1
-          </a>
-
-          <a data-cy="Category" className="button mr-2 my-1" href="#/">
-            Category 2
-          </a>
-
-          <a data-cy="Category" className="button mr-2 my-1 is-info" href="#/">
-            Category 3
-          </a>
-          <a data-cy="Category" className="button mr-2 my-1" href="#/">
-            Category 4
-          </a>
+            return (
+              <a
+                key={category.label}
+                data-cy="Category"
+                className={cn('button mr-2 my-1', { 'is-info': isActive })}
+                href="#/"
+                onClick={() => {
+                  setSortCategory(category.label);
+                  setCategoryItem(category.label);
+                }}
+              >
+                {category.label}
+              </a>
+            );
+          })}
         </div>
 
         <div className="panel-block">

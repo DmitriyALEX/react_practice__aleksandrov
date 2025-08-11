@@ -1,11 +1,8 @@
 import React from 'react';
-import cn from 'classNames';
-import { tableHeaders } from '../utils/constans';
-import { sex } from '../utils/constans';
+import cn from 'classnames';
+import { tableHeaders, gender } from '../utils/constans';
 
 const MainTable = ({ renderedData }) => {
-  console.log(renderedData);
-
   return (
     <div className="box table-container">
       <p data-cy="NoMatchingMessage">No products matching selected criteria</p>
@@ -73,7 +70,13 @@ const MainTable = ({ renderedData }) => {
               <td data-cy="ProductCategory">
                 {tableItem.category.icon} - {tableItem.category.title}
               </td>
-              <td data-cy="ProductUser" className="has-text-link">
+              <td
+                data-cy="ProductUser"
+                className={cn({
+                  'has-text-link': tableItem.owner.sex === gender.MALE,
+                  'has-text-danger': tableItem.owner.sex === gender.FEMALE,
+                })}
+              >
                 {tableItem.owner.name}
               </td>
             </tr>
